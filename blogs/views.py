@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from blogs.models import Blog, Category
 
@@ -8,10 +8,11 @@ from blogs.models import Blog, Category
 def posts_by_category(request, category_id):
     # Fetch posts based on the category_id
     posts = Blog.objects.filter(status='Published', category = category_id)
-    try:
-        category = Category.objects.get(pk=category_id)
-    except :
-        return redirect('home')  # Redirect to home if category not found
+    # try:
+    #     category = Category.objects.get(pk=category_id)
+    # except :
+    #     return redirect('home')  # Redirect to home if category not found
+    category = get_object_or_404(Category, pk=category_id)
     context = {
         'posts': posts,
         'category': category,
