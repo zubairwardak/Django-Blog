@@ -35,6 +35,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('category/', include('blogs.urls')),
     path('<slug:slug>/', BlogsViews.blogs, name='blogs'),
+    path('blogs/search/', BlogsViews.search, name='search'),
 ]
 
 if settings.DEBUG:
