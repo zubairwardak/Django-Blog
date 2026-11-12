@@ -36,5 +36,6 @@ def search(request):
 
     context = {
         'blogs': blogs, 
+        'keyword': keyword
     }
     return render(request, 'search.html',context)
