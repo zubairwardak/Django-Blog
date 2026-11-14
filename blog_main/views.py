@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from assignments.models import About
+from blog_main.forms import RegistrationForm
 from blogs.models import Blog, Category
 
 
@@ -29,6 +30,11 @@ def home(request):
     return render(request, 'home.html', context)
 
 def register(request):
-    return render(request, 'register.html')
+    form = RegistrationForm()
+    context = {
+        'form' : form,
+    }
+    
+    return render(request, 'register.html', context)
 
 
