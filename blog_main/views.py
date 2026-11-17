@@ -7,6 +7,7 @@ from django.shortcuts import render
 from assignments.models import About
 from blog_main.forms import RegistrationForm
 from blogs.models import Blog, Category
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def home(request):
@@ -30,11 +31,28 @@ def home(request):
     return render(request, 'home.html', context)
 
 def register(request):
-    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render('register')
+        else:
+            print(form.errors)
+
+    else:
+        form = RegistrationForm()
     context = {
         'form' : form,
     }
     
     return render(request, 'register.html', context)
+
+
+def login(request):
+    form = AuthenticationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'login.html', context)
 
 
